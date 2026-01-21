@@ -5,12 +5,13 @@ import { AppTab } from '../types';
 interface SidebarProps {
   activeTab: AppTab;
   setActiveTab: (tab: AppTab) => void;
+  onNewEvaluation: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
+const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onNewEvaluation }) => {
   const menuItems = [
-    { id: AppTab.OVERVIEW, label: 'Overview', icon: 'fa-chart-pie' },
-    { id: AppTab.INSPECT, label: 'Inspect', icon: 'fa-table-list' },
+    { id: AppTab.TASKS_LIST, label: 'All Tasks', icon: 'fa-layer-group' },
+    { id: AppTab.SETTINGS, label: 'Settings', icon: 'fa-gear' },
   ];
 
   return (
@@ -29,7 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
               key={item.id}
               onClick={() => setActiveTab(item.id)}
               className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 ${
-                activeTab === item.id
+                activeTab === item.id || (item.id === AppTab.TASKS_LIST && (activeTab === AppTab.TASK_OVERVIEW || activeTab === AppTab.TASK_INSPECT))
                   ? 'bg-blue-50 text-blue-600 font-semibold shadow-sm border border-blue-100/50'
                   : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
               }`}
@@ -41,20 +42,16 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
         </nav>
       </div>
 
-      <div className="mt-auto p-6 flex flex-col gap-4">
+      <div className="mt-auto p-6 flex flex-col items-center">
         <button
-          onClick={() => setActiveTab(AppTab.SETTINGS)}
-          className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 ${
-            activeTab === AppTab.SETTINGS
-              ? 'bg-gray-100 text-gray-900 font-semibold'
-              : 'text-gray-400 hover:bg-gray-50 hover:text-gray-700'
-          }`}
+          onClick={onNewEvaluation}
+          title="New Evaluation"
+          className="w-14 h-14 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg shadow-blue-500/30 hover:bg-blue-500 hover:scale-105 active:scale-95 transition-all mb-6"
         >
-          <i className="fas fa-gear w-5 text-center text-sm"></i>
-          <span className="text-sm">Settings</span>
+          <i className="fas fa-plus text-xl"></i>
         </button>
 
-        <div className="p-4 rounded-2xl bg-gray-50 border border-gray-100">
+        <div className="w-full p-4 rounded-2xl bg-gray-50 border border-gray-100">
           <p className="text-[10px] text-gray-400 mb-2 font-bold uppercase tracking-widest">Evaluation Engine</p>
           <div className="flex items-center gap-2 mb-1">
             <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
@@ -62,7 +59,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
           </div>
           <div className="flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
-            <span className="text-[11px] font-medium">v2.5.0 Analysis</span>
+            <span className="text-[11px] font-medium">v2.5.1 Stable</span>
           </div>
         </div>
       </div>

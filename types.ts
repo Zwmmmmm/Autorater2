@@ -1,7 +1,8 @@
 
 export enum AppTab {
-  OVERVIEW = 'OVERVIEW',
-  INSPECT = 'INSPECT',
+  TASKS_LIST = 'TASKS_LIST',
+  TASK_OVERVIEW = 'TASK_OVERVIEW',
+  TASK_INSPECT = 'TASK_INSPECT',
   SETTINGS = 'SETTINGS'
 }
 
@@ -32,20 +33,25 @@ export interface EvaluationEntry {
   timestamp: number;
 }
 
-/**
- * Fix for Error in file components/ImageGenSection.tsx on line 4: Module '"../types"' has no exported member 'ImageResult'.
- * Interface defining the structure of an image generation result.
- */
+export interface EvalTask {
+  id: string;
+  fileName: string;
+  timestamp: number;
+  status: 'processing' | 'done';
+  data: EvaluationEntry[];
+  summary: {
+    avgScore: number;
+    total: number;
+    passRate: number;
+  };
+}
+
 export interface ImageResult {
   url: string;
   prompt: string;
   timestamp: number;
 }
 
-/**
- * Fix for Error in file components/SearchSection.tsx on line 4: Module '"../types"' has no exported member 'ChatMessage'.
- * Interface defining the structure of a chat message with potential grounding URLs.
- */
 export interface ChatMessage {
   role: 'user' | 'model';
   text: string;
