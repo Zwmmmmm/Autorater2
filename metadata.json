@@ -1,0 +1,9 @@
+{
+  "name": "LLM Evaluation Engine",
+  "description": "An automated evaluation hub for assessing Large Language Model agent performance across orchestration, tool usage, and summarization quality.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
